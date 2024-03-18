@@ -132,9 +132,7 @@ local function getNpcPrompt() : ()
 		
 		fireproximityprompt(npcPrompt, 1, true)
 
-		SimpleSpy:GetRemoteFiredSignal(game:GetService('ReplicatedStorage').Packages._Index['sleitnick_knit@1.4.7'].knit.Services.HackingService.RE.StartedPhoneHack):Connect(function(a, b)
-			print('a:', a, '| b:', b) --
-			
+		SimpleSpy:GetRemoteFiredSignal(game:GetService('ReplicatedStorage').Packages._Index['sleitnick_knit@1.4.7'].knit.Services.HackingService.RE.StartedPhoneHack):Connect(function()
 			hackedGuiFrame.Visible = false
 			finishedEvent:FireServer(tostring(npc.Name))
 
