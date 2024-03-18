@@ -131,9 +131,8 @@ local function getNpcPrompt() : ()
 		-- [[ need abstraction ("fireNpcPrompt" may)
 		
 		fireproximityprompt(npcPrompt, 1, true)
-		-- //
+		
 		local waitFor = Instance.new('BoolValue') -- testing
-		-- //
 
 		local test2 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function() waitFor = true end)
 		local test1 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function(npc) finishedEvent:FireServer(0) end)
