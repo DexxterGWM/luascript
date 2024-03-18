@@ -103,6 +103,8 @@ local function getNpcPrompt() : ()
 		
 		playerChar:MoveTo(npcRootPart.Position)
 		npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
+		
+		print('prompt:', npcPrompt) --
 
 		if not (npcPrompt) then
 			local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
@@ -114,8 +116,6 @@ local function getNpcPrompt() : ()
 				end
 			end)
 		end
-
-		print(npcPrompt)
 
 		fireproximityprompt(npcPrompt, 1, true)
 		startedEvent:FireServer(tostring(npc.Name))
