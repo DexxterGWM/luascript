@@ -1,7 +1,5 @@
---[[
-problem:
-	npc frame not closing when hacked (i mean, could be an event related to the npc?!)
---]]
+-- problem(s):
+--	npc frame not closing when hacked (i mean, could be an event related to the npc?!)
 
 if not (game:IsLoaded()) then game.Loaded:Wait() end
 
