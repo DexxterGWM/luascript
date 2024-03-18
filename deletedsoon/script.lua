@@ -137,9 +137,11 @@ local function getNpcPrompt() : ()
 			finishedEvent:FireServer(0)
 
 			waitFor = true
+			print(waitFor)
 		end)
 
 		waitFor.Changed:Wait()
+		print(waitFor) --
 		waitFor = false
 		
 		call(delNpcs, {npc})
