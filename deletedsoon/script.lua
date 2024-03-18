@@ -135,7 +135,7 @@ local function getNpcPrompt() : ()
 		local waitFor = Instance.new('BoolValue') -- testing
 
 		local test1 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function(npc) finishedEvent:FireServer(0) end)
-		local test2 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function() waitFor = true end)
+		local test2 = SimpleSpy:GetRemoteFiredSignal(finishedEvent):Connect(function() waitFor = true end)
 
 		waitFor.Changed:Wait()
 		
