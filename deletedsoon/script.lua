@@ -122,7 +122,7 @@ local function getNpcPrompt() : ()
 		-- startedEvent:FireServer(tostring(npc.Name))
 
 		repeat
-			wait(1) --
+			wait(1)
 		until
 			hackedGuiFrame.Visible
 		
