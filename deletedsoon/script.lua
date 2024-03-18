@@ -95,12 +95,6 @@ local function childEvents(child) : ()
 end
 
 local function getNpcPrompt() : ()
-	local fireprompt = function(prompt)
-		fireproximityprompt(npcPrompt, 1, true)
-		startedEvent:FireServer(tostring(npc.Name))
-		finishedEvent:FireServer(tostring(npc.Name))
-	end
-	
 	for npc, npcTabl in pairs(npcsTabl) do
 		local npc = npcTabl['npc']
 		
@@ -109,15 +103,15 @@ local function getNpcPrompt() : ()
 		
 		local npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
 
-		if not (npcPrompt) then
-			while not (npcPrompt) do -- GetAttributeChangedSignal?
-				playerChar:MoveTo(npcRootPart.Position)
-				npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
-				wait(1.4)
-			end
+		while not (npcPrompt) do -- GetAttributeChangedSignal?
+			playerChar:MoveTo(npcRootPart.Position)
+			npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
+			wait(1.4)
 		end
 
-		fireprompt(npcPrompt)
+		fireproximityprompt(npcPrompt, 1, true)
+		startedEvent:FireServer(tostring(npc.Name))
+		finishedEvent:FireServer(tostring(npc.Name))
 	end
 end
 
