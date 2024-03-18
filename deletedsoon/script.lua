@@ -118,9 +118,9 @@ local function getNpcPrompt() : ()
 		end
 
 		print('3', npcPrompt) --
-		
-		fireproximityprompt(npcPrompt, 1, true)
+
 		print('npc name', npc.Name)
+		fireproximityprompt(npcPrompt, 1, true)
 		
 		startedEvent:FireServer(tostring(npc.Name))
 		finishedEvent:FireServer(tostring(npc.Name))
