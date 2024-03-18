@@ -12,6 +12,8 @@ local playerChar = player.Character
 
 -- //
 local hackedGui = player.PlayerGui.PhoneHackDialog
+local hackedGuiFrame = hackedGui.Holder
+
 hackedGui.Enabled = false --
 -- //
 
@@ -116,11 +118,20 @@ local function getNpcPrompt() : ()
 
 		print('npc name', npc.Name)
 		fireproximityprompt(npcPrompt, 1, true)
+
+		-- startedEvent:FireServer(tostring(npc.Name))
+
+		repeat
+			wait(1)
+		until
+			not (hackedGuiFrame.Visible)
 		
-		startedEvent:FireServer(tostring(npc.Name))
 		finishedEvent:FireServer(tostring(npc.Name))
+		hackedGuiFrame.Visible = false
 
 		table.remove(npcsTabl, table.find(npcsTabl, tostring(npc.Name)))
+		
+		end)
 	end
 end
 
