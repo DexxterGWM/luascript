@@ -102,13 +102,18 @@ local function getNpcPrompt() : ()
 		playerChar:MoveTo(npcRootPart.Position)
 		
 		local npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
+		print('1', npcPrompt) --
 
 		while not (npcPrompt) do -- GetAttributeChangedSignal?
+			print('2', npcPrompt) --
+			
 			playerChar:MoveTo(npcRootPart.Position)
 			npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
 			wait(1.4)
 		end
 
+		print('3', npcPrompt) --
+		
 		fireproximityprompt(npcPrompt, 1, true)
 		startedEvent:FireServer(tostring(npc.Name))
 		finishedEvent:FireServer(tostring(npc.Name))
