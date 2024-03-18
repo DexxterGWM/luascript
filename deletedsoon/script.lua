@@ -151,13 +151,13 @@ local function setNpcsFromPath(path) : ()
 		local success, returnVal = call(setNpcs, {npc})
 
 		if success then
-			--[[
-			npc.AncestryChanged:Connect(function(npc, parent)
-				if not (npc.Parent) then call(delNpcs, {npc})
-				elseif npc.Parent then print(npc.Name, 'New parent:', parent)
-				end
-			end)
-			--]]
+			-- ?
+			
+			-- npc.AncestryChanged:Connect(function(npc, parent)
+			--	if not (npc.Parent) then call(delNpcs, {npc})
+			--	elseif npc.Parent then print(npc.Name, 'New parent:', parent)
+			--	end
+			-- end)
 
 		elseif not (success) then print('[-] Failed on <npcs path>:', returnVal)
 		end
@@ -165,19 +165,13 @@ local function setNpcsFromPath(path) : ()
 	
 	call(getNpcPrompt)
 
-	--[[
-	path.ChildAdded:Connect(
-		function(child)
-			call(childEvents, {[1] = child, [2] = true})
-		end
-	)
+	-- path.ChildAdded:Connect(function(child)
+	--	call(childEvents, {[1] = child, [2] = true})
+	-- end)
 	
-	path.ChildRemoved:Connect(
-		function(child)
-			call(childEvents, {[1] = child, [2] = false})
-		end
-	)
-	--]]
+	-- path.ChildRemoved:Connect(function(child)
+	--	call(childEvents, {[1] = child, [2] = false})
+	-- end)
 
 	return
 end
