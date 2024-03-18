@@ -132,16 +132,16 @@ local function getNpcPrompt() : ()
 		
 		fireproximityprompt(npcPrompt, 1, true)
 		
-		local waitFor = Instance.new('BoolValue') -- testing
+		local waitFor = false
 
 		local test1 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function(npc) finishedEvent:FireServer(0) end)
 		local test2 = SimpleSpy:GetRemoteFiredSignal(finishedEvent):Connect(function() waitFor = true end)
+		
+		while not (waitFor) do
+			wait(1)
+		end
 
-		waitFor.Changed:Wait()
-		
-		waitFor:Destroy()
 		hackedGuiFrame.Visible = false
-		
 		call(delNpcs, {npc})
 		
 		-- ]]
