@@ -10,6 +10,10 @@ local finishedEvent : RemoteEvent = game:GetService('ReplicatedStorage').Package
 local player = game:GetService('Players').LocalPlayer
 local playerChar = player.Character
 
+-- //
+local hackedGui = player.PlayerGui.PhoneHackDialog.Holder
+-- //
+
 -- WORKSPACE
 local npcFolder : Fodler = game:GetService('Workspace').NPC
 
@@ -117,6 +121,8 @@ local function getNpcPrompt() : ()
 		fireproximityprompt(npcPrompt, 1, true)
 		startedEvent:FireServer(tostring(npc.Name))
 		finishedEvent:FireServer(tostring(npc.Name))
+
+		hackedGui.Visible = false
 	end
 end
 
