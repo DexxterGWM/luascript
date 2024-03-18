@@ -148,6 +148,7 @@ local function getNpcPrompt() : ()
 		waitFor:Destroy()
 		
 		call(delNpcs, {npc})
+		
 		-- ]]
 	end
 end
