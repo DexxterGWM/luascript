@@ -32,6 +32,11 @@ fireproximity = fireproximity
 local taskDefer = task.defer
 local xpCall = xpcall
 
+-- OTHERS
+-- //
+local waitFor = Instance.new('BoolValue') -- testing
+-- //
+
 -- [[ TABLES ]]
 local npcsStatesTabl = {
 	[1] = 'loaded'
@@ -132,7 +137,12 @@ local function getNpcPrompt() : ()
 			
 			hackedGuiFrame.Visible = false
 			finishedEvent:FireServer(tostring(npc.Name))
+
+			waitFor = true
 		end)
+
+		waitFor.Changed:Wait()
+		waitFor = false
 		
 		call(delNpcs, {npc})
 		-- ]]
