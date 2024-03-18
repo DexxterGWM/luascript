@@ -34,7 +34,7 @@ local xpCall = xpcall
 
 -- OTHERS
 -- //
-local waitFor = Instance.new('BoolValue') -- testing
+-- local waitFor = Instance.new('BoolValue') -- testing
 -- //
 
 -- [[ TABLES ]]
@@ -131,6 +131,9 @@ local function getNpcPrompt() : ()
 		-- [[ need abstraction ("fireNpcPrompt" may)
 		
 		fireproximityprompt(npcPrompt, 1, true)
+		-- //
+		local waitFor = Instance.new('BoolValue') -- testing
+		-- //
 
 		SimpleSpy:GetRemoteFiredSignal(game:GetService('ReplicatedStorage').Packages._Index['sleitnick_knit@1.4.7'].knit.Services.HackingService.RE.StartedPhoneHack):Connect(function(npc)
 			hackedGuiFrame.Visible = false
@@ -141,8 +144,8 @@ local function getNpcPrompt() : ()
 		end)
 
 		waitFor.Changed:Wait()
-		print(waitFor) --
-		waitFor = false
+		print('wait') --
+		waitFor:Destroy()
 		
 		call(delNpcs, {npc})
 		-- ]]
