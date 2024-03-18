@@ -95,14 +95,12 @@ local function childEvents(child) : ()
 end
 
 local function getNpcPrompt() : ()
-	local npcPrompt
-	
 	for npc, npcTabl in pairs(npcsTabl) do
 		local npc = npcTabl['npc']
 		local npcRootPart = npc.HumanoidRootPart
 		
 		playerChar:MoveTo(npcRootPart.Position)
-		npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
+		local npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
 		
 		print('prompt:', npcPrompt) --
 
