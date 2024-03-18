@@ -124,7 +124,7 @@ local function getNpcPrompt() : ()
 		repeat
 			wait(1) --
 		until
-			not (hackedGuiFrame.Visible) --
+			not (hackedGuiFrame.Visible)
 		
 		finishedEvent:FireServer(tostring(npc.Name))
 		hackedGuiFrame.Visible = false
