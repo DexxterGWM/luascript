@@ -130,7 +130,7 @@ local function getNpcPrompt() : ()
 		hackedGuiFrame.Visible = false
 
 		-- table.remove(npcsTabl, table.find(npcsTabl, tostring(npc.Name)))
-		call(delNpcs, npc)
+		call(delNpcs, {npc})
 	end
 end
 
