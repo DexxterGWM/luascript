@@ -1,3 +1,8 @@
+--[[
+problem:
+	npc frame not closing when hacked (i mean, could be an event related to the npc?!)
+--]]
+
 if not (game:IsLoaded()) then game.Loaded:Wait() end
 
 -- [[ VARIABLES ]]
@@ -118,7 +123,7 @@ local function getNpcPrompt() : ()
 		end
 
 		fireproximityprompt(npcPrompt, 1, true)
-		-- startedEvent:FireServer(tostring(npc.Name))
+		-- startedEvent:FireServer(tostring(npc.Name)) -- not necessary, may
 
 		repeat
 			wait(1)
