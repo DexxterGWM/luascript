@@ -107,8 +107,12 @@ local function getNpcPrompt() : ()
 		print('prompt:', npcPrompt) --
 
 		if not (npcPrompt) then
+			print('here') --
+			
 			local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
-				if npcPrompt then connection:Disconnect()
+				if npcPrompt then
+					print('?')
+					connection:Disconnect()
 				
 				elseif not (npcPrompt) then
 					local npcRootPart = npc.HumanoidRootPart
