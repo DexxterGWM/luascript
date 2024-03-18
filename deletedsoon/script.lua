@@ -102,7 +102,8 @@ local function getNpcPrompt() : ()
 		playerChar:MoveTo(npcRootPart.Position)
 		local npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
 		
-		print('prompt:', npcPrompt) --
+		print(not(npcPrompt)) --
+		print(npcPrompt)
 
 		if not (npcPrompt) then
 			print('here') --
