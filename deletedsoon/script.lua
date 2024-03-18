@@ -12,7 +12,7 @@ local playerChar = player.Character
 
 -- //
 local hackedGui = player.PlayerGui.PhoneHackDialog
-hackedGui.Enabled = false
+hackedGui.Enabled = false --
 -- //
 
 -- WORKSPACE
