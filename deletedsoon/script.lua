@@ -116,9 +116,7 @@ local function getNpcPrompt() : ()
 			wait(1)
 		end
 
-		print('npc name', npc.Name)
 		fireproximityprompt(npcPrompt, 1, true)
-
 		-- startedEvent:FireServer(tostring(npc.Name))
 
 		repeat
@@ -128,6 +126,7 @@ local function getNpcPrompt() : ()
 		
 		finishedEvent:FireServer(tostring(npc.Name))
 		hackedGuiFrame.Visible = false
+		
 		call(delNpcs, {npc})
 	end
 end
