@@ -135,7 +135,7 @@ local function getNpcPrompt() : ()
 		local waitFor = false
 
 		local test1 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function(npc) finishedEvent:FireServer(0) end)
-		local test2 = SimpleSpy:GetRemoteFiredSignal(finishedEvent):Connect(function() waitFor = true end)
+		local test2 = SimpleSpy:GetRemoteFiredSignal(finishedEvent):Connect(function() wait(1); waitFor = true end)
 		
 		while not (waitFor) do
 			wait(1)
