@@ -109,8 +109,9 @@ local function getNpcPrompt() : ()
 			print('here') --
 			
 			local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
+				print('?') --
+				
 				if npcPrompt then
-					print('?')
 					connection:Disconnect()
 				
 				elseif not (npcPrompt) then
