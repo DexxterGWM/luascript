@@ -124,36 +124,6 @@ local function getNpcPrompt() : ()
 		startedEvent:FireServer(tostring(npc.Name))
 		finishedEvent:FireServer(tostring(npc.Name))
 	end
-	
-	--[[
-	wait(1)
-	
-	npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
-	if npcPrompt then fireproximity(npcPrompt, 1, true)
-
-	elseif not (npcPrompt) then
-		local possibilities = 2
-
-		local findNpcPrompt; findNpcPrompt = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
-			if possibilities and not (npcPrompt) then
-				local npcRootPart = npc.HumanoidRootPart
-				playerChar:MoveTo(npcRootPart.Position)
-
-				wait(1)
-				
-				npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
-				
-				possibilities = possibilities - 1
-				return
-				
-			elseif npcPrompt then
-				fireproximity(npcPrompt, 1, true)
-			end
-			
-			findNpcPrompt:Disconnect()
-		end)
-	end
-	--]]
 end
 
 local function setNpcsFromPath(path) : ()
@@ -173,10 +143,6 @@ local function setNpcsFromPath(path) : ()
 				elseif npc.Parent then print(npc.Name, 'New parent:', parent)
 				end
 			end)
-			--]]
-
-			--[[
-			call(getNpcPrompt, {npc})
 			--]]
 
 		elseif not (success) then print('[-] Failed on <npcs path>:', returnVal)
