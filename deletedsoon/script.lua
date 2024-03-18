@@ -115,7 +115,7 @@ local function getNpcPrompt() : ()
 			end)
 		end
 
-		fireproximityprompt(npcPrompt)
+		fireproximityprompt(npcPrompt, 1, true)
 		startedEvent:FireServer(tostring(npc.Name))
 		finishedEvent:FireServer(tostring(npc.Name))
 	end
