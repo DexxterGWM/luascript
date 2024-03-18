@@ -3,6 +3,9 @@
 
 if not (game:IsLoaded()) then game.Loaded:Wait() end
 
+-- [[ SERVICES ]]
+loadstring(game:HttpGet('https://github.com/exxtremestuffs/SimpleSpySource/raw/master/SimpleSpy.lua'))()
+
 -- [[ VARIABLES ]]
 
 -- REMOTES
@@ -123,17 +126,11 @@ local function getNpcPrompt() : ()
 		-- [[ need abstraction ("fireNpcPrompt" may)
 		
 		fireproximityprompt(npcPrompt, 1, true)
-		-- startedEvent:FireServer(tostring(npc.Name)) -- not necessary, may
 
-		repeat
-			wait(1)
-		until
-			hackedGuiFrame.Visible
-		
-		hackedGuiFrame.Visible = false
-		wait(1)
-		
-		finishedEvent:FireServer(tostring(npc.Name))
+		SimpleSpy:GetRemoteFiredSignal(game:GetService('ReplicatedStorage').Packages._Index['sleitnick_knit@1.4.7'].knit.Services.HackingService.RE.StartedPhoneHack):Connect(function()
+			hackedGuiFrame.Visible = false
+			finishedEvent:FireServer(tostring(npc.Name))
+		end)
 		
 		call(delNpcs, {npc})
 		-- ]]
