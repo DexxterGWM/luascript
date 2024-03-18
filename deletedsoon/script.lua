@@ -95,35 +95,28 @@ local function childEvents(child) : ()
 end
 
 local function getNpcPrompt() : ()
-	for npc, npcTabl in pairs(npcsTabl) do
-		local npc = npcTabl['npc']
-		local npcRootPart = npc.HumanoidRootPart
-		
-		playerChar:MoveTo(npcRootPart.Position)
-		local npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
-		
-		print(not(npcPrompt)) --
-		print(npcPrompt)
-
-		if not (npcPrompt) then
-			print('here') --
-			
-			local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
-				print('?') --
-				
-				if npcPrompt then
-					connection:Disconnect()
-				
-				elseif not (npcPrompt) then
-					local npcRootPart = npc.HumanoidRootPart
-					npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
-				end
-			end)
-		end
-
+	local fireprompt = function(prompt)
 		fireproximityprompt(npcPrompt, 1, true)
 		startedEvent:FireServer(tostring(npc.Name))
 		finishedEvent:FireServer(tostring(npc.Name))
+	end
+	
+	for npc, npcTabl in pairs(npcsTabl) do
+		local npc = npcTabl['npc']
+		
+		local npcRootPart = npc.HumanoidRootPart
+		playerChar:MoveTo(npcRootPart.Position)
+		
+		local npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
+
+		if not (npcPrompt) then
+			while not (npcPrompt) do -- GetAttributeChangedSignal?
+				playerChar:MoveTo(npcRootPart.Position)
+				npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
+			end
+		end
+
+		fireprompt(npcPrompt)
 	end
 end
 
