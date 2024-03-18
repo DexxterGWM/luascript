@@ -11,7 +11,7 @@ local player = game:GetService('Players').LocalPlayer
 local playerChar = player.Character
 
 -- //
-local hackedGui = player.PlayerGui.PhoneHackDialog.Holder
+local hackedGui = player.PlayerGui.PhoneHackDialog
 hackedGui.Enabled = false
 -- //
 
@@ -125,7 +125,7 @@ local function getNpcPrompt() : ()
 		startedEvent:FireServer(tostring(npc.Name))
 		finishedEvent:FireServer(tostring(npc.Name))
 
-		-- hackedGui.Visible = false
+		-- hackedGui.Holder.Visible = false
 	end
 end
 
