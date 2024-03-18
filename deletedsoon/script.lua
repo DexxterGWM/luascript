@@ -185,8 +185,8 @@ end
 local function getNpcsPlaces() : ()
 	local success, returnVal = call(setNpcsPlaces, {
 		[1] = npcFolder
-		-- [2] = game:GetService('Lighting').PreUnloadedNPC,
-		-- [3] = game:GetService('Lighting').UnloadedNPC
+		-- [2] = preUnloadedNPC,
+		-- [3] = unloadedNPC
 	})
 
 	if success then print('[+] Success on <npcs places>')
@@ -206,13 +206,11 @@ local function getLoadedNpc() : ()
 	return
 end
 
---[[
-getPreUnloadedNpc()
-game:GetService('Lighting').PreUnloadedNPC
+-- getPreUnloadedNpc()
+-- game:GetService('Lighting').PreUnloadedNPC
 
-getUnloadedNpc() : ()
-game:GetService('Lighting').UnloadedNPC
---]]
+-- getUnloadedNpc() : ()
+-- game:GetService('Lighting').UnloadedNPC
 
 -- [[ SCRIPT ]]
 
@@ -221,29 +219,7 @@ call(getNpcsPlaces)
 
 -- STARTING
 call(getLoadedNpc)
---[[
-preUnloadedNpc
-unloadedNpc
---]]
+-- preUnloadedNpc
+-- unloadedNpc
 
---[[
-
-
-
-
--- //
-taskDefer
-
-
--- //
-local player = game:GetService('Players').LocalPlayer
-local playerChar = player.Character
-
-local collectables = game:GetService('Workspace').EventCollectables
-
-local collectableObj = collectables:FindFirstChild('1').Hitbox
-
-playerChar:MoveTo(collectableObj.Position)
-
-
---]]
+-- taskDefer
