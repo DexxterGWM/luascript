@@ -113,6 +113,7 @@ local function getNpcPrompt() : ()
 			while not (npcPrompt) do -- GetAttributeChangedSignal?
 				playerChar:MoveTo(npcRootPart.Position)
 				npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
+				wait(1.4)
 			end
 		end
 
