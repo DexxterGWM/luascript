@@ -17,7 +17,7 @@ local playerChar = player.Character
 local hackedGui = player.PlayerGui.PhoneHackDialog
 local hackedGuiFrame = hackedGui.Holder
 
--- hackedGui.Enabled = false --
+-- hackedGui.Enabled = false -- ?
 -- //
 
 -- WORKSPACE
@@ -120,6 +120,8 @@ local function getNpcPrompt() : ()
 			npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
 		end
 
+		-- [[ need abstraction ("fireNpcPrompt" may)
+		
 		fireproximityprompt(npcPrompt, 1, true)
 		-- startedEvent:FireServer(tostring(npc.Name)) -- not necessary, may
 
@@ -134,6 +136,7 @@ local function getNpcPrompt() : ()
 		finishedEvent:FireServer(tostring(npc.Name))
 		
 		call(delNpcs, {npc})
+		-- ]]
 	end
 end
 
