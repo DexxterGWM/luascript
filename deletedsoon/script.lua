@@ -14,7 +14,7 @@ local playerChar = player.Character
 local hackedGui = player.PlayerGui.PhoneHackDialog
 local hackedGuiFrame = hackedGui.Holder
 
-hackedGui.Enabled = false --
+-- hackedGui.Enabled = false --
 -- //
 
 -- WORKSPACE
@@ -124,7 +124,7 @@ local function getNpcPrompt() : ()
 		repeat
 			wait(1) --
 		until
-			not (hackedGuiFrame.Visible)
+			hackedGuiFrame.Visible
 		
 		finishedEvent:FireServer(tostring(npc.Name))
 		hackedGuiFrame.Visible = false
