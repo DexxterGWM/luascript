@@ -135,17 +135,13 @@ local function getNpcPrompt() : ()
 		local waitFor = Instance.new('BoolValue') -- testing
 		-- //
 
-		SimpleSpy:GetRemoteFiredSignal(game:GetService('ReplicatedStorage').Packages._Index['sleitnick_knit@1.4.7'].knit.Services.HackingService.RE.StartedPhoneHack):Connect(function(npc)
-			hackedGuiFrame.Visible = false
-			finishedEvent:FireServer(1) -- or 0, may
-
-			waitFor = true
-			print(waitFor)
-		end)
+		local test2 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function() waitFor = true end)
+		local test1 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function(npc) finishedEvent:FireServer(0) end)
 
 		waitFor.Changed:Wait()
-		print('wait') --
+		
 		waitFor:Destroy()
+		hackedGuiFrame.Visible = false
 		
 		call(delNpcs, {npc})
 		
