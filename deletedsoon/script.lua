@@ -124,8 +124,10 @@ local function getNpcPrompt() : ()
 		until
 			hackedGuiFrame.Visible
 		
-		finishedEvent:FireServer(tostring(npc.Name))
 		hackedGuiFrame.Visible = false
+		wait(1)
+		
+		finishedEvent:FireServer(tostring(npc.Name))
 		
 		call(delNpcs, {npc})
 	end
