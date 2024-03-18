@@ -128,8 +128,6 @@ local function getNpcPrompt() : ()
 		
 		finishedEvent:FireServer(tostring(npc.Name))
 		hackedGuiFrame.Visible = false
-
-		-- table.remove(npcsTabl, table.find(npcsTabl, tostring(npc.Name)))
 		call(delNpcs, {npc})
 	end
 end
