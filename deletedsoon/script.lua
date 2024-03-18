@@ -134,7 +134,7 @@ local function getNpcPrompt() : ()
 
 		SimpleSpy:GetRemoteFiredSignal(game:GetService('ReplicatedStorage').Packages._Index['sleitnick_knit@1.4.7'].knit.Services.HackingService.RE.StartedPhoneHack):Connect(function(npc)
 			hackedGuiFrame.Visible = false
-			finishedEvent:FireServer(0)
+			finishedEvent:FireServer(1) -- or 0, may
 
 			waitFor = true
 			print(waitFor)
