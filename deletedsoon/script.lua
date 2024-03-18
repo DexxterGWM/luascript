@@ -2,6 +2,10 @@ if not (game:IsLoaded()) then game.Loaded:Wait() end
 
 -- [[ VARIABLES ]]
 
+-- REMOTES
+local startedEvent : RemoteEvent = game:GetService('ReplicatedStorage').Packages._Index['sleitnick_knit@1.4.7'].knit.Services.HackingService.RE.StartedPhoneHack
+local finishedEvent : RemoteEvent = game:GetService('ReplicatedStorage').Packages._Index['sleitnick_knit@1.4.7'].knit.Services.HackingService.RE.FinishedPhoneHack
+
 -- PLAYER
 local player = game:GetService('Players').LocalPlayer
 local playerChar = player.Character
@@ -94,10 +98,26 @@ local function getNpcPrompt() : ()
 	local npcPrompt
 	
 	for npc, npcTabl in pairs(npcsTabl) do
-		local npcRootPart = npcTabl['npc'].HumanoidRootPart
-		playerChar:MoveTo(npcRootPart.Position)
+		local npc = npcTabl['npc']
+		local npcRootPart = npc.HumanoidRootPart
 		
-		wait(1)
+		playerChar:MoveTo(npcRootPart.Position)
+		npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
+
+		if not (npcPrompt) then
+			local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
+				if npcPrompt then connection:Disconnect()
+				
+				elseif not (npcPrompt) then
+					local npcRootPart = npc.HumanoidRootPart
+					npcPrompt = npcRootPart:FindFirstChild('ProximityPrompt')
+				end
+			end)
+		end
+
+		fireproximityprompt(npcPrompt)
+		startedEvent:FireServer(tostring(npc.Name))
+		finishedEvent:FireServer(tostring(npc.Name))
 	end
 	
 	--[[
