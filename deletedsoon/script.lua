@@ -148,15 +148,19 @@ local function getNpcPrompt() : ()
 		
 		local waitFor = false
 
-		local test1 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function(npc) finishedEvent:FireServer(0) end)
-		local test2 = SimpleSpy:GetRemoteFiredSignal(finishedEvent):Connect(function() wait(1); waitFor = true end)
-		
-		while not (waitFor) do
+		local test1 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function(npc)
+			HackingController.CancelAndCleanFromOutside() -- ?
+			finishedEvent:FireServer(0)
+		end)
+		local test2 = SimpleSpy:GetRemoteFiredSignal(finishedEvent):Connect(function()
 			wait(1)
-		end
+			waitFor = true
+		end)
+		
+		while not (waitFor) do wait(1) end
 
 		--
-		HackingController.CancelAndCleanFromOutside() -- ?
+		-- HackingController.CancelAndCleanFromOutside() -- ?
 		call(delNpcs, {npc})
 		
 		-- ]]
