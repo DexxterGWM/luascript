@@ -41,6 +41,7 @@ local playerChar = player.Character
 -- may won't need these*
 -- local hackedGui = player.PlayerGui.PhoneHackDialog
 -- local hackedGuiFrame = hackedGui.Holder
+local NPCHackDialog = player.PlayerGui.NPCHackDialog
 
 -- WORKSPACE
 local npcFolder : Fodler = Workspace.NPC
@@ -149,8 +150,11 @@ local function getNpcPrompt() : ()
 		local waitFor = false
 
 		local test1 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function(npc)
-			HackingController.CancelAndCleanFromOutside() -- ?
-			finishedEvent:FireServer(0)
+			local connect; connect = NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
+				HackingController.CancelAndCleanFromOutside() -- ?
+				finishedEvent:FireServer(0)
+				connect:Disconnect()
+			end)
 		end)
 		local test2 = SimpleSpy:GetRemoteFiredSignal(finishedEvent):Connect(function()
 			wait(1)
