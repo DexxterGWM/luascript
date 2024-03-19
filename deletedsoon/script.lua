@@ -1,41 +1,55 @@
--- problem(s):
---	npc frame not closing when hacked (i mean, could be an event related to the npc?!)
-
 if not (game:IsLoaded()) then game.Loaded:Wait() end
 
--- [[ SERVICES ]]
+-- [[ SERVICES VARIABLES ]]
+
+-- API(s)
 loadstring(game:HttpGet('https://github.com/exxtremestuffs/SimpleSpySource/raw/master/SimpleSpy.lua'))()
 
--- [[ VARIABLES ]]
+-- GAME SERVICES
+local ReplicatedStorage = game:GetService('ReplicatedStorage')
+local Workspace = game:GetService('Workspace')
+
+-- [[ MODULES/REMOTES FOLDERS ]]
+
+-- MODULES
+local Source = ReplicatedStorage.Source
+local Controllers = Source.Controllers
 
 -- REMOTES
-local startedEvent : RemoteEvent = game:GetService('ReplicatedStorage').Packages._Index['sleitnick_knit@1.4.7'].knit.Services.HackingService.RE.StartedPhoneHack
-local finishedEvent : RemoteEvent = game:GetService('ReplicatedStorage').Packages._Index['sleitnick_knit@1.4.7'].knit.Services.HackingService.RE.FinishedPhoneHack
+local Packages : Folder = ReplicatedStorage.Packages
+local Index : Folder = Packages._Index['sleitnick_knit@1.4.7']
+local knit : Folder = Index.knit
+local Services : Folder = knit.Services
+local HackingService : Folder = Services.HackingService
+local RE = HackingService.RE
 
--- PLAYER
+-- [[ MODULES/REMOTES VARIABLES ]]
+
+-- MODULES
+local HackingController = require(Controllers.HackingController)
+
+-- REMOTES
+local StartedPhoneHack = RE.StartedPhoneHack
+local FinishedPhoneHack = RE.FinishedPhoneHack
+
+-- [[ SCRIPT VARIABLES ]]
+
+-- PLAYER VARIABLES
 local player = game:GetService('Players').LocalPlayer
 local playerChar = player.Character
 
--- //
-local hackedGui = player.PlayerGui.PhoneHackDialog
-local hackedGuiFrame = hackedGui.Holder
-
--- hackedGui.Enabled = false -- ?
--- //
+-- may won't need these*
+-- local hackedGui = player.PlayerGui.PhoneHackDialog
+-- local hackedGuiFrame = hackedGui.Holder
 
 -- WORKSPACE
-local npcFolder : Fodler = game:GetService('Workspace').NPC
+local npcFolder : Fodler = Workspace.NPC
 
 -- FUNCTIONS VARIABLES
 fireproximity = fireproximity
 
 local taskDefer = task.defer
 local xpCall = xpcall
-
--- OTHERS
--- //
--- local waitFor = Instance.new('BoolValue') -- testing
--- //
 
 -- [[ TABLES ]]
 local npcsStatesTabl = {
@@ -141,7 +155,8 @@ local function getNpcPrompt() : ()
 			wait(1)
 		end
 
-		hackedGuiFrame.Visible = false
+		--
+		HackingController.CancelAndCleanFromOutside() -- ?
 		call(delNpcs, {npc})
 		
 		-- ]]
