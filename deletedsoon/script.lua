@@ -150,6 +150,7 @@ local function getNpcPrompt() : ()
 		local waitFor = false
 
 		SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc)
+			print('Finished')
 			FinishedPhoneHack:FireServer(0)
 		end)
 		
