@@ -32,9 +32,6 @@ local HackingController = require(Controllers.HackingController)
 local StartedPhoneHack = RE.StartedPhoneHack
 local FinishedPhoneHack = RE.FinishedPhoneHack
 
-print(StartedPhoneHack)
-print(FinishedPhoneHack)
-
 -- [[ SCRIPT VARIABLES ]]
 
 -- PLAYER VARIABLES
@@ -153,23 +150,23 @@ local function getNpcPrompt() : ()
 		local waitFor = false
 
 		local test1 = SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc)
-			-- HackingController.CancelAndCleanFromOutside() -- ?
 			FinishedPhoneHack:FireServer(0)
+			test1:Disconnect()
 		end)
 		local test2 = SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
 			local guiConnection; guiConnection = NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
 				guiConnection:Disconnect()
 				waitFor = true
+				test2:Disconnect()
 			end)
 			
-			HackingController.CancelAndCleanFromOutside() -- ?
+			HackingController.CancelAndCleanFromOutside()
 		end)
 		
 		while not (waitFor) do wait(1) end
 
-		--
-		-- HackingController.CancelAndCleanFromOutside() -- ?
 		call(delNpcs, {npc})
+		wait(1)
 		
 		-- ]]
 	end
