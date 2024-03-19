@@ -149,11 +149,11 @@ local function getNpcPrompt() : ()
 		
 		local waitFor = false
 
-		local test1 = SimpleSpy:GetRemoteFiredSignal(startedEvent):Connect(function(npc)
+		local test1 = SimpleSpy:GetRemoteFiredSignal(StartedEvent):Connect(function(npc)
 			-- HackingController.CancelAndCleanFromOutside() -- ?
 			finishedEvent:FireServer(0)
 		end)
-		local test2 = SimpleSpy:GetRemoteFiredSignal(finishedEvent):Connect(function()
+		local test2 = SimpleSpy:GetRemoteFiredSignal(FinishedEvent):Connect(function()
 			HackingController.CancelAndCleanFromOutside() -- ?
 			
 			local guiConnection; guiConnection = NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
