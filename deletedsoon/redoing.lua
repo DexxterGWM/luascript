@@ -118,7 +118,6 @@ local function npcHandler(childTabl : {[number] : Instance}) : ()
 	return
 end
 
---
 local function npcPrompt() : ()
 	local npcPromptIteratorThread = coroutine.create(function(_) : ()
 		for _, npc in pairs(npcsTabl) do
@@ -158,11 +157,9 @@ local function npcPromptHandler() : ()
 	
 	return
 end
---
 
 npcHandler(npcFolder:GetChildren())
 
--- getNpcsPrompt()
 npcPromptHandler()
 
 -- coroutine.close?! (depends of what's needed)
