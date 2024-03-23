@@ -1,16 +1,14 @@
-	--[[
-local testButton = game:GetService('Players').LocalPlayer.PlayerGui.ChocolateMenu:FindFirstChild('testButton')
-if testButton then testButton:Destroy() end
+-- local testButton = game:GetService('Players').LocalPlayer.PlayerGui.ChocolateMenu:FindFirstChild('testButton')
+-- if testButton then testButton:Destroy() end
 
-local testButton = Instance.new('TextButton')
+-- local testButton = Instance.new('TextButton')
 
-testButton.AnchorPoint = Vector2.new(0.5, 0.5)
-testButton.Position = UDim2.new(0.5, 0, 0.5, 0)
-testButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-testButton.Text = 'cancel'
-testButton.Parent = game:GetService('Players').LocalPlayer.PlayerGui.ChocolateMenu
-testButton.Size = UDim2.new(0, 50, 0, 50)
---]]
+-- testButton.AnchorPoint = Vector2.new(0.5, 0.5)
+-- testButton.Position = UDim2.new(0.5, 0, 0.5, 0)
+-- testButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+-- testButton.Text = 'cancel'
+-- testButton.Parent = game:GetService('Players').LocalPlayer.PlayerGui.ChocolateMenu
+-- testButton.Size = UDim2.new(0, 50, 0, 50)
 
 -- [[ ESSENTIAL VARIABLES ]]
 
@@ -79,36 +77,6 @@ local function delNpc(npcName : string, npc : Instance) : ()
 end
 
 -- FUNCTIONAL
-
--- //
---[[
-local function fireNpcPrompt()
-	fireproximityprompt(npcPrompt, 1, true)
-
-	local waitFor = false
-
-	SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function()
-		print('Finished')
-		FinishedPhoneHack:FireServer(0)
-	end)
-
-	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
-		local guiConnection; guiConnection = Players.LocalPlayer.PlayerGui.NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
-			guiConnection:Disconnect()
-			waitFor = true
-		end)
-
-		HackingController.CancelAndCleanFromOutside()
-	end)
-
-	while not (waitFor) do wait(1) end
-
-	delNpc(npcName, npc)
-	wait(1)
-end
---]]
--- //
-
 local function npcIterator(childTabl : {[number] : Instance}) : ()
 	local npcIteratorThread = coroutine.create(function(_) : ()
 		for index = 1, #childTabl do
@@ -200,15 +168,12 @@ npcPromptHandler()
 -- coroutine.close?! (depends of what's needed)
 -- task.cancel?! (may)
 
---[[
-local test; test = npcFolder.ChildAdded:Connect(function(child : Instance) : ()
-	if (not (child:FindFirstChildOfClass('Humanoid'))) then return end
-	
-	npcHandler({child})
-	
-	return
-end)
+-- local test; test = npcFolder.ChildAdded:Connect(function(child : Instance) : ()
+-- 	if (not (child:FindFirstChildOfClass('Humanoid'))) then return end
+-- 	
+-- 	npcHandler({child})
+-- 	
+-- 	return
+-- end)
 
---
-testButton.MouseButton1Click:Connect(function() test:Disconnect(); testButton:Destroy() end)
---]]
+-- testButton.MouseButton1Click:Connect(function() test:Disconnect(); testButton:Destroy() end)
