@@ -120,33 +120,17 @@ end
 
 local function npcPrompt() : ()
 	local npcPromptIteratorThread = coroutine.create(function(_) : ()
-		--
-		local count = 0
-		for a, b in pairs(npcsTabl) do
-			count += 1
-		end
-		print(count)
-		--
-		
-		for a, npc in pairs(npcsTabl) do
-			print('a:', a) --
-			print('npc:', npc) --
+		for _, npc in pairs(npcsTabl) do
+			-- :GetAttributeChangedSignal('NextCFrame'):Connect(function()
+			local npcPrompt
 			
-			Players.LocalPlayer.Character:MoveTo(npc.HumanoidRootPart.Position)
-
-			local npcPrompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
-
-			if (not (npcPrompt)) then
-				local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
-					if (npcPrompt) then connection:Disconnect(); return end
-					
-					Players.LocalPlayer.Character:MoveTo(npc.HumanoidRootPart.Position)
-					npcPrompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
-				end)
+			repeat
+				npc.AttributeChanged:Wait()
 				
-				while not (npcPrompt) do wait(1) end
-				print('got', npcPrompt) --
-			end
+				Players.LocalPlayer.Character:MoveTo(npc.HumanoidRootPart.Position)
+				npcPrompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
+				
+			until (not (npcPrompt))
 			
 			coroutine.yield(npcPrompt)
 		end
