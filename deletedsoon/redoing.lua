@@ -123,22 +123,22 @@ local function npcPrompt() : ()
 		print('there?!') --
 		
 		for _, npc in pairs(npcsTabl) do
-			print('!', npcPrompt) --
-			local npcPrompt
+			local prompt
+			print('!', prompt) --
 			
 			local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
 				Players.LocalPlayer.Character:MoveTo(npc.HumanoidRootPart.Position)
-				npcPrompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
+				prompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
 				
-				if (npcPrompt) then connection:Disconnect() end
+				if (prompt) then connection:Disconnect() end
 			end)
 			
-			while (not (npcPrompt)) do
+			while (not (prompt)) do
 				wait(1)
 			end
 			
-			print('.', npcPrompt) --
-			coroutine.yield(npcPrompt)
+			print('.', prompt) --
+			coroutine.yield(prompt)
 		end
 		
 		print('what?') --
@@ -146,9 +146,9 @@ local function npcPrompt() : ()
 	
 	return function() : ()
 		-- local _, npcPrompt = coroutine.resume(task.defer(npcPromptIteratorThread))
-		local _, npcPrompt = coroutine.resume(npcPromptIteratorThread)
+		local _, prompt = coroutine.resume(npcPromptIteratorThread)
 		
-		return npcPrompt
+		return prompt
 	end
 end
 
