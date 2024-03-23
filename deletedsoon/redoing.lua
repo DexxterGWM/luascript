@@ -153,9 +153,9 @@ local function npcPrompt() : ()
 end
 
 local function npcPromptHandler() : ()
-	for npcPrompt in npcPrompt() do
-		local npcPrompt = npcPrompt
-		print('prompt:', npcPrompt) --
+	for prompt in npcPrompt() do
+		local prompt = prompt
+		print('prompt:', prompt) --
 	end
 	
 	return
