@@ -134,7 +134,8 @@ local function npcPrompt() : ()
 				wait(1)
 			end
 			
-			coroutine.yield({prompt})
+			print('got that') --
+			coroutine.yield({['prompt'] = prompt})
 		end
 	end)
 	
@@ -150,9 +151,6 @@ local function npcPromptHandler() : ()
 	print('?')
 	
 	for prompt in npcPrompt() do
-		print('!')
-		
-		local prompt = prompt
 		print('prompt:', prompt) --
 	end
 	
