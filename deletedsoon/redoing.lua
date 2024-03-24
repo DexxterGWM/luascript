@@ -66,15 +66,13 @@ local pairs = pairs
 -- // TEST
 local npcIndexThread : thread = coroutine.create(function(lastNameIndex : string) : ()
 	while true do
-		print(lastNameIndex) --
-
 		if (not (lastNameIndex)) then
-			print('there')
-			coroutine.yield(lastNameIndex) --
-		end
+			lastNameIndex = lastNameIndex
+			coroutine.yield(lastNameIndex)
 
-		print('.')
-		lastNameIndex = coroutine.yield(lastNameIndex)
+		elseif (lastNameIndex) then
+			lastNameIndex = coroutine.yield(lastNameIndex)
+		end
 	end
 end)
 -- //
