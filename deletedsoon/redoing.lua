@@ -93,7 +93,6 @@ local function npcIterator(childTabl : {[number] : Instance}) : ()
 	end)
 
 	return function() : {}
-		-- local _, tabl : {['string'] : boolean | Instance} = coroutine.resume(task.defer(npcIteratorThread))
 		local _, tabl : {['string'] : boolean | Instance} = coroutine.resume(npcIteratorThread)
 		
 		return tabl
@@ -140,20 +139,23 @@ local function npcPrompt() : ()
 	end)
 	
 	return function() : ()
-		print(coroutine.status(npcPromptIteratorThread), '?')
-		local a, promptTabl = coroutine.resume(npcPromptIteratorThread)
+		local success, promptTabl
 		
-		print('?', a)
-		print('?', promptTabl)
+		repeat
+			task.wait()
+			success, promptTabl = coroutine.resume(npcPromptIteratorThread)
+			
+			print('suc:', success)
+			print('pmpt:', promptTabl)
+			
+		until (not (success)) or (promptTabl)
 		
-		return promptTabl
+		return (success and promptTabl) or (success)
 	end
 end
 
 local function npcPromptHandler() : ()
-	for a, prompt in npcPrompt() do
-		print(a)
-		
+	for _, prompt in npcPrompt() do
 		print('prompt:', prompt) --
 	end
 	
