@@ -139,11 +139,11 @@ local function npcPrompt() : ()
 	local prompt
 
 	local _, lastIndex = coroutine.resume(npcIndexThread) --!
-	print(lastIndex)
-	print(coroutine.resume(npcIndexThread))
+	print('got:', lastIndex)
+	-- print(coroutine.resume(npcIndexThread))
 
 	local npc = table.find(npcsTabl, lastIndex)
-	print(npc)
+	-- print(npc)
 		
 	--[[
 	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
