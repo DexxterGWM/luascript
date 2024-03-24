@@ -120,7 +120,9 @@ end
 
 local function npcPrompt() : ()
 	local npcPromptIteratorThread = coroutine.create(function(_) : ()
-		for _, npc in pairs(npcsTabl) do
+		for index, npc in npcsTabl do
+			print('index:', index) --
+			
 			local prompt
 			
 			local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
@@ -148,8 +150,6 @@ local function npcPrompt() : ()
 end
 
 local function npcPromptHandler() : ()
-	print('?')
-	
 	for prompt in npcPrompt() do
 		print('prompt:', prompt) --
 	end
