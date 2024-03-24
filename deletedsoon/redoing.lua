@@ -141,14 +141,19 @@ local function npcPrompt() : ()
 	
 	return function() : ()
 		print(coroutine.status(npcPromptIteratorThread), '?')
-		local _, promptTabl = coroutine.resume(npcPromptIteratorThread)
+		local a, promptTabl = coroutine.resume(npcPromptIteratorThread)
+		
+		print('?', a)
+		print('?', promptTabl)
 		
 		return promptTabl
 	end
 end
 
 local function npcPromptHandler() : ()
-	for prompt in npcPrompt() do
+	for a, prompt in npcPrompt() do
+		print(a)
+		
 		print('prompt:', prompt) --
 	end
 	
@@ -156,12 +161,6 @@ local function npcPromptHandler() : ()
 end
 
 npcHandler(npcFolder:GetChildren())
-
---
-for _, npc in pairs(npcsTabl) do
-	print(npc, 'from <npcs table>') --
-end
---
 
 npcPromptHandler()
 
