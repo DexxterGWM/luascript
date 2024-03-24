@@ -131,7 +131,12 @@ local function npcPrompt() : ()
 	print('got:', lastNpc)
 
 	local npc = table.find(npcsTabl, lastNpc)
-	print(npc)
+	print('/', npc)
+
+	local npc = rawget(npcsTabl, lastNpc)
+	print('-', npc)
+
+	print('+', npcsTabl[lastNpc])
 		
 	--[[
 	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
