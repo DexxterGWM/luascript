@@ -134,7 +134,7 @@ local function npcPrompt() : ()
 				wait(1)
 			end
 			
-			print('got that') --
+			print('got that', npc.Name) --
 			coroutine.yield({['prompt'] = prompt})
 		end
 	end)
@@ -156,6 +156,12 @@ local function npcPromptHandler() : ()
 end
 
 npcHandler(npcFolder:GetChildren())
+
+--
+for _, npc in pairs(npcsTabl) do
+	print(npc, 'from <npcs table>') --
+end
+--
 
 npcPromptHandler()
 
