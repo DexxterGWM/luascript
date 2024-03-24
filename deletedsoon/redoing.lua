@@ -64,15 +64,21 @@ local pairs = pairs
 -- [[ LOCAL FUNCTIONS ]]
 
 -- // TEST
-local npcIndexThread : thread = coroutine.create(function(index : number) : ()
-	while true do index = index + coroutine.yield(index) end
+local npcIndexThread : thread = coroutine.create(function(lastNameIndex : string) : ()
+	while true do
+		if (not (lastNameIndex)) then
+			coroutine.yield(lastNameIndex) --
+		end
+
+		lastNameIndex = coroutine.yield(lastNameIndex)
+	end
 end)
 -- //
 
 -- SETTERS
 local function setNpc(npcName : string, npc : Instance) : ()
 	npcsTabl[npcName] = npc
-	coroutine.resume(npcIndexThread, 1) --
+	coroutine.resume(npcIndexThread, npcName) --
 
 	return
 end
@@ -128,9 +134,9 @@ end
 local function npcPrompt() : ()
 	local prompt
 
-	local _, lastIndex = coroutine.resume(npcIndexThread, 0) --!
+	local _, lastIndex = coroutine.resume(npcIndexThread) --!
 	print(lastIndex)
-	print(coroutine.resume(npcIndexThread, 0))
+	print(coroutine.resume(npcIndexThread))
 
 	local npc = table.find(npcsTabl, lastIndex)
 	print(npc)
