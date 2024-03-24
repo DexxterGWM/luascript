@@ -57,32 +57,21 @@ local FinishedPhoneHack : RemoteEvent = RE.FinishedPhoneHack
 -- TABLES
 local npcsTabl : {[string] : Instance} = {}
 
+-- //
+-- TEST
+local lastNpcTabl = {}
+-- //
+
 -- FUNCTIONS
 fireproximityprompt = fireproximityprompt
 local pairs = pairs
 
 -- [[ LOCAL FUNCTIONS ]]
 
--- // TEST
-local npcIndexThread : thread = coroutine.create(function(lastNameIndex : string) : ()
-	while true do
-		if (not (lastNameIndex)) then
-			print('here') --
-			lastNameIndex = lastNameIndex
-			coroutine.yield(lastNameIndex)
-
-		elseif (lastNameIndex) then
-			print('there') --
-			lastNameIndex = coroutine.yield(lastNameIndex)
-		end
-	end
-end)
--- //
-
 -- SETTERS
 local function setNpc(npcName : string, npc : Instance) : ()
 	npcsTabl[npcName] = npc
-	coroutine.resume(npcIndexThread, npcName) --
+	lastNpcTabl['lastNpc'] = npcName -- //
 
 	return
 end
@@ -138,12 +127,11 @@ end
 local function npcPrompt() : ()
 	local prompt
 
-	local _, lastIndex = coroutine.resume(npcIndexThread) --!
+	local lastNpc = lastNpcTabl['lastNpc'] --!
 	print('got:', lastIndex)
-	-- print(coroutine.resume(npcIndexThread))
 
-	local npc = table.find(npcsTabl, lastIndex)
-	-- print(npc)
+	local npc = table.find(npcsTabl, lastNpc)
+	print(npc)
 		
 	--[[
 	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
