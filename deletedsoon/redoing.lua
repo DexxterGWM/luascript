@@ -131,6 +131,10 @@ end
 
 local function npcPrompt() : ()
 	local prompt
+
+	print('?', lastNpcIndex) --?
+	print('!', coroutine.resume(npcsIndexThread, 0)) --!
+
 	local npc = table.find(npcsTabl, lastNpcIndex)
 	print(npc)
 		
