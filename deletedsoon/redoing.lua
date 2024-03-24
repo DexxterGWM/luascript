@@ -63,9 +63,20 @@ local pairs = pairs
 
 -- [[ LOCAL FUNCTIONS ]]
 
+-- // TEST
+local lastNpcIndex = 0
+
+local npcsIndexThread : thread = coroutine.create(function(index : number) : ()
+	while true do index = index + coroutine.yield(index) end
+end)
+-- //
+
 -- SETTERS
 local function setNpc(npcName : string, npc : Instance) : ()
 	npcsTabl[npcName] = npc
+	-- //
+	lastNpcIndex = coroutine.resume(npcsIndexThread, 1)
+	-- //
 
 	return
 end
@@ -105,6 +116,7 @@ local function npcHandler(childTabl : {[number] : Instance}) : ()
 			local npc : Instance = npcTabl['npc']
 			
 			setNpc(npc.Name, npc)
+			
 			print(('[+] %s setted on <npcs>'):format(tostring(npc.Name)))
 		
 		elseif (not (npcTabl['success'])) then
@@ -118,46 +130,33 @@ local function npcHandler(childTabl : {[number] : Instance}) : ()
 end
 
 local function npcPrompt() : ()
-	local npcPromptIteratorThread = coroutine.create(function(_) : ()
-		for _, npc in pairs(npcsTabl) do
-			local prompt
-			
-			local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
-				Players.LocalPlayer.Character:MoveTo(npc.HumanoidRootPart.Position)
-				prompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
-				
-				if (prompt) then connection:Disconnect() end
-			end)
-			
-			while (not (prompt)) do
-				wait(1)
-			end
-			
-			print('got that', npc.Name) --
-			coroutine.yield({['prompt'] = prompt})
-		end
+	local prompt
+	local npc = table.find(npcsTabl, lastNpcIndex)
+	print(npc)
+		
+	--[[
+	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
+		Players.LocalPlayer.Character:MoveTo(npc.HumanoidRootPart.Position)
+		prompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
+		
+		if (prompt) then connection:Disconnect() end
 	end)
 	
-	return function() : ()
-		local success, promptTabl
-		
-		repeat
-			task.wait()
-			success, promptTabl = coroutine.resume(npcPromptIteratorThread)
-			
-			print('suc:', success)
-			print('pmpt:', promptTabl)
-			
-		until (not (success)) or (promptTabl)
-		
-		return (success and promptTabl) or (success)
+	while (not (prompt)) do
+		wait(1)
 	end
+	
+	print('got that', npc.Name) --
+	--]]
 end
 
 local function npcPromptHandler() : ()
+	--[[
 	for _, prompt in npcPrompt() do
 		print('prompt:', prompt) --
 	end
+	--]]
+	npcPrompt()
 	
 	return
 end
