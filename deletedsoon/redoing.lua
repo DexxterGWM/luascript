@@ -71,10 +71,7 @@ local pairs = pairs
 -- SETTERS
 local function setNpc(npcName : string, npc : Instance) : ()
 	npcsTabl[npcName] = npc
-	print(lastNpcTabl, '//')
-	print(lastNpcTabl['lastNpc'], '?') --
 	lastNpcTabl['lastNpc'] = npcName -- //
-	print(lastNpcTabl['lastNpc']) --
 
 	return
 end
@@ -131,7 +128,7 @@ local function npcPrompt() : ()
 	local prompt
 
 	local lastNpc = lastNpcTabl['lastNpc'] --!
-	print('got:', lastIndex)
+	print('got:', lastNpc)
 
 	local npc = table.find(npcsTabl, lastNpc)
 	print(npc)
