@@ -71,7 +71,10 @@ local pairs = pairs
 -- SETTERS
 local function setNpc(npcName : string, npc : Instance) : ()
 	npcsTabl[npcName] = npc
+	print(lastNpcTabl, '//')
+	print(lastNpcTabl['lastNpc'], '?') --
 	lastNpcTabl['lastNpc'] = npcName -- //
+	print(lastNpcTabl['lastNpc']) --
 
 	return
 end
