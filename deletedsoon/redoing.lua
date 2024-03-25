@@ -57,11 +57,6 @@ local FinishedPhoneHack : RemoteEvent = RE.FinishedPhoneHack
 -- TABLES
 local npcsTabl : {[string] : Instance} = {}
 
--- //
--- TEST
-local lastNpcTabl = {}
--- //
-
 -- FUNCTIONS
 fireproximityprompt = fireproximityprompt
 local pairs = pairs
@@ -71,13 +66,14 @@ local pairs = pairs
 -- SETTERS
 local function setNpc(npcName : string, npc : Instance) : ()
 	npcsTabl[npcName] = npc
-	lastNpcTabl['lastNpc'] = npcName -- //
+	print(('[*] %s setted on <npcs>'):format(tostring(npc.Name)))
 
 	return
 end
 
-local function delNpc(npcName : string, npc : Instance) : ()
+local function delNpc(npcName : string) : ()
 	table.remove(npcsTabl, table.find(npcsTabl, npcName))
+	print(('[*] %s deleted from <npcs>'):format(tostring(npc.Name)))
 	
 	return
 end
@@ -109,10 +105,7 @@ local function npcHandler(childTabl : {[number] : Instance}) : ()
 	for npcTabl in npcIterator(childTabl) do
 		if (npcTabl['success']) then
 			local npc : Instance = npcTabl['npc']
-			
 			setNpc(npc.Name, npc)
-			
-			print(('[+] %s setted on <npcs>'):format(tostring(npc.Name)))
 		
 		elseif (not (npcTabl['success'])) then
 			print('[-] <npc> already setted, continuing')
@@ -124,12 +117,9 @@ local function npcHandler(childTabl : {[number] : Instance}) : ()
 	return
 end
 
-local function npcPrompt() : ()
+local function npcPrompt(npc : Instance) : ()
 	local prompt
 
-	local lastNpc = lastNpcTabl['lastNpc']
-	local npc = rawget(npcsTabl, lastNpc)
-	
 	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
 		Players.LocalPlayer.Character:MoveTo(npc.HumanoidRootPart.Position)
 		prompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
@@ -141,16 +131,15 @@ local function npcPrompt() : ()
 		wait(1)
 	end
 	
-	print('got that', npc.Name)
+	return prompt
 end
 
 local function npcPromptHandler() : ()
-	--[[
-	for _, prompt in npcPrompt() do
-		print('prompt:', prompt) --
+	for _, npc in pairs(npcsTabl) do
+		if (npcPrompt(npc)) then
+			delNpc(npc.Name)
+		end
 	end
-	--]]
-	npcPrompt()
 	
 	return
 end
