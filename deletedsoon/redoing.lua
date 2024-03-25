@@ -145,14 +145,16 @@ local function firePrompt(prompt) : boolean
 	
 	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
 		local guiConnection; guiConnection = NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
+			print('got that') --
 			guiConnection:Disconnect()
 			waitFor = true
+
+			HackingController.CancelAndCleanFromOutside()
 		end)
-		
-		HackingController.CancelAndCleanFromOutside()
 	end)
 	
 	while not (waitFor) do wait(1) end
+	print(NPCHackDialog.Enabled, '!') --
 	
 	return true
 end
