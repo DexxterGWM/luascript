@@ -148,8 +148,7 @@ end
 
 npcHandler(npcFolder:GetChildren())
 
-local ipairs = ipairs
-for ind, np in ipairs(npcsTabl) do
+for ind, np in pairs(npcsTabl) do
 	print('		', ind, '?')
 	print('		', np, '?')
 end
