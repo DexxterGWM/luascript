@@ -135,7 +135,9 @@ local function npcPrompt(npc : Instance) : ()
 end
 
 local function npcPromptHandler() : ()
-	for _, npc in pairs(npcsTabl) do
+	for _, npc in ipairs(npcsTabl) do --?
+		print(npc) --
+		
 		if (npcPrompt(npc)) then
 			delNpc(npc.Name)
 		end
@@ -145,6 +147,12 @@ local function npcPromptHandler() : ()
 end
 
 npcHandler(npcFolder:GetChildren())
+
+local ipairs = ipairs
+for ind, np in ipairs(npcsTabl) do
+	print('		', ind, '?')
+	print('		', np, '?')
+end
 
 npcPromptHandler()
 
