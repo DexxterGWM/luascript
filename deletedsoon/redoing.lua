@@ -66,14 +66,14 @@ local pairs = pairs
 -- SETTERS
 local function setNpc(npcName : string, npc : Instance) : ()
 	npcsTabl[npcName] = npc
-	print(('[*] %s setted on <npcs>'):format(tostring(npc.Name)))
+	print(('[*] %s setted on <npcs>'):format(tostring(npcName)))
 
 	return
 end
 
 local function delNpc(npcName : string) : ()
 	table.remove(npcsTabl, table.find(npcsTabl, npcName))
-	print(('[*] %s deleted from <npcs>'):format(tostring(npc.Name)))
+	print(('[*] %s deleted from <npcs>'):format(tostring(npcName)))
 	
 	return
 end
