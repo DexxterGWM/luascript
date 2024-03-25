@@ -134,7 +134,7 @@ local function getPrompt(npc : Instance) : ()
 	return prompt
 end
 
-local function firePrompt(promtp) : boolean
+local function firePrompt(prompt) : boolean
 	local waitFor = false
 	fireproximityprompt(prompt, 1, true)
 
@@ -159,7 +159,9 @@ end
 
 local function npcPromptHandler() : ()
 	for _, npc in pairs(npcsTabl) do
-		if (getPrompt(npc)) then
+		local prompt = getPrompt(npc)
+
+		if (prompt) then
 			firePrompt(prompt)
 			delNpc(npc.Name)
 		end
