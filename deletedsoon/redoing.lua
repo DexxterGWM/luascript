@@ -13,7 +13,7 @@
 -- [[ ESSENTIAL VARIABLES ]]
 
 -- API(s)
--- pcall(function() loadstring(game:HttpGet('https://github.com/exxtremestuffs/SimpleSpySource/raw/master/SimpleSpy.lua'))() end)
+pcall(function() loadstring(game:HttpGet('https://github.com/exxtremestuffs/SimpleSpySource/raw/master/SimpleSpy.lua'))() end)
 
 -- [[ SERVICES ]]
 
@@ -117,7 +117,7 @@ local function npcHandler(childTabl : {[number] : Instance}) : ()
 	return
 end
 
-local function npcPrompt(npc : Instance) : ()
+local function getPrompt(npc : Instance) : ()
 	local prompt
 
 	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
@@ -134,17 +134,36 @@ local function npcPrompt(npc : Instance) : ()
 	return prompt
 end
 
-local function npcPromptHandler() : ()
-	print('here')
-	for _, npc in pairs(npcsTabl) do --?
-		print(npc) --
+local function firePrompt(promtp) : boolean
+	local waitFor = false
+	fireproximityprompt(prompt, 1, true)
+
+	SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc)
+		print('Finished')
+		FinishedPhoneHack:FireServer(0)
+	end)
+	
+	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
+		local guiConnection; guiConnection = NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
+			guiConnection:Disconnect()
+			waitFor = true
+		end)
 		
-		if (npcPrompt(npc)) then
+		HackingController.CancelAndCleanFromOutside()
+	end)
+	
+	while not (waitFor) do wait(1) end
+	
+	return true
+end
+
+local function npcPromptHandler() : ()
+	for _, npc in pairs(npcsTabl) do
+		if (getPrompt(npc)) then
+			firePrompt(prompt)
 			delNpc(npc.Name)
 		end
 	end
-
-	print('there')
 	
 	return
 end
