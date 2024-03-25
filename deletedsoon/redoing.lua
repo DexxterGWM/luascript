@@ -127,18 +127,9 @@ end
 local function npcPrompt() : ()
 	local prompt
 
-	local lastNpc = lastNpcTabl['lastNpc'] --!
-	print('got:', lastNpc)
-
-	local npc = table.find(npcsTabl, lastNpc)
-	print('/', npc)
-
+	local lastNpc = lastNpcTabl['lastNpc']
 	local npc = rawget(npcsTabl, lastNpc)
-	print('-', npc)
-
-	print('+', npcsTabl[lastNpc])
-		
-	--[[
+	
 	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
 		Players.LocalPlayer.Character:MoveTo(npc.HumanoidRootPart.Position)
 		prompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
@@ -150,8 +141,7 @@ local function npcPrompt() : ()
 		wait(1)
 	end
 	
-	print('got that', npc.Name) --
-	--]]
+	print('got that', npc.Name)
 end
 
 local function npcPromptHandler() : ()
