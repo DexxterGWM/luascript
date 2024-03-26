@@ -140,11 +140,8 @@ end
 local function firePrompt(prompt) : boolean
 	local waitFor = false
 
-	print(PhoneHackDialog.Holder.Visible, 'here') --
 	local connection; connection = PhoneHackDialog.Holder:GetPropertyChangedSignal('Visible'):Connect(function()
 		connection:Disconnect()
-		
-		print(PhoneHackDialog.Holder.Visible, 'there') --
 		HackingController.CancelAndCleanFromOutside()
 	end)
 
@@ -152,16 +149,13 @@ local function firePrompt(prompt) : boolean
 
 	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
 		waitFor = true
-		print('Cancel wait for')
 	end)
 	
 	SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc)
-		print('Finished')
 		FinishedPhoneHack:FireServer(0)
 	end)
 	
 	while not (waitFor) do wait(1) end
-	print(PhoneHackDialog.Holder.Visible, 'end') --
 	
 	return true
 end
