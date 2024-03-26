@@ -168,6 +168,7 @@ local function npcPromptHandler() : ()
 
 		if (prompt) then
 			print('prompt of', npc.Name) --
+			
 			firePrompt(prompt)
 			delNpc(npc.Name)
 		end
