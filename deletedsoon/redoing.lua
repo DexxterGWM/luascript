@@ -131,8 +131,10 @@ local function getPrompt(npc : Instance) : ()
 		
 		if (prompt) then connection:Disconnect() end
 	end)
+
+	-- need parent changed connection
 	
-	while (not (prompt)) do
+	while (not (prompt)) do -- infinite loop in case of: parent changed (in the case, npc was destroyed)
 		wait(1)
 	end
 	
