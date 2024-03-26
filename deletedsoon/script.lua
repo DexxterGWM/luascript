@@ -123,9 +123,9 @@ end
 local function firePrompt(prompt) : boolean -- need fix (some)
 	local waitFor : boolean = false
 
-	local connection : RBXScriptConnection
+	local frameConnection : RBXScriptConnection
 	connection = game:GetService('Players').LocalPlayer.PlayerGui.PhoneHackDialog.Holder:GetPropertyChangedSignal('Visible'):Connect(function()
-		connection:Disconnect(); HackingController.CancelAndCleanFromOutside()
+		frameConnection:Disconnect(); HackingController.CancelAndCleanFromOutside()
 	end)
 	
 	-- SimpleSpy come from _G
