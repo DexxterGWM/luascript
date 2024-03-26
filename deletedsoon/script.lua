@@ -86,11 +86,13 @@ end
 
 local function getPrompt(npc : Instance) : boolean -- prompt type
 	if (not (npc.ClassName == 'Model' and npc:FindFirstChildOfClass('Humanoid'))) then warn('error getting prompt'); return false end
-	print(('attempt to get prompt of %s'):format(tostring(npc.Name))) --
 	
+	local debugModel = ('%s getting prompt of %s')	
 	local prompt -- :? type
 
 	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
+		print(debugModel:format('attempt', tostring(npc.Name))) --
+		
 		game:GetService('Players').LocalPlayer.Character:MoveTo(npc.HumanoidRootPart.Position)
 		prompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
 
@@ -98,7 +100,8 @@ local function getPrompt(npc : Instance) : boolean -- prompt type
 	end)
 
 	while (not (prompt)) do
-		if (not (npc.Parent)) then warn(('failed getting prompt of %s'):format(tostring(npc.Name))); return false end
+		if (not (npc.Parent)) then warn(debugModel:format('failed', tostring(npc.Name))); return false end
+		
 		wait(1)
 	end
 	
@@ -117,13 +120,13 @@ local function firePrompt(prompt) : boolean
 
 	fireproximityprompt(prompt, 1, true)
 
-	--SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
-	--	waitFor = true
-	--end)
+	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
+		waitFor = true
+	end)
 
-	--SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc)
-	--	FinishedPhoneHack:FireServer(0)
-	--end)
+	SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc)
+		FinishedPhoneHack:FireServer(0)
+	end)
 
 	while not (waitFor) do wait(1) end
 
