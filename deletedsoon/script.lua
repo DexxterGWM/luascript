@@ -152,6 +152,8 @@ local function npcPromptHandler() : ()
 	return
 end
 
+-- [[ SCRIPT ]]
+
 npcHandler(game:GetService('Workspace').NPC:GetChildren())
 -- game:GetService('Lighting').UnloadedNPC
 -- game:GetService('Lighting').PreUnloadedNPC
