@@ -17,8 +17,7 @@ local HackingController : {} = require(Controllers.HackingController)
 local RE : Folder = game:GetService('ReplicatedStorage').Packages._Index['sleitnick_knit@1.4.7'].knit.Services.HackingService.RE
 
 -- REMOTES VARIABLES
-local StartedPhoneHack : RemoteEvent = RE.StartedPhoneHack
-local FinishedPhoneHack : RemoteEvent = RE.FinishedPhoneHack
+local StartedPhoneHack : RemoteEvent, FinishedPhoneHack : RemoteEvent = RE.StartedPhoneHack, RE.FinishedPhoneHack
 
 -- [[ SCRIPT VARIABLES ]]
 
@@ -26,28 +25,36 @@ local FinishedPhoneHack : RemoteEvent = RE.FinishedPhoneHack
 local npcsTabl : {[string] : Instance} = {}
 
 -- FUNCTIONS
-fireproximityprompt = fireproximityprompt
+local coroutine = coroutine
 local pairs = pairs
+
+local rawget, rawset = rawget, rawset
+local table = table
+
+fireproximityprompt = fireproximityprompt
 
 -- [[ LOCAL FUNCTIONS ]]
 
 -- SETTERS
-local function setNpc(npcName : string, npc : Instance) : ()
-	npcsTabl[npcName] = npc
-	print(('[*] %s setted on <npcs>'):format(tostring(npcName)))
+local function setNpc(npc : Instance) : () -- need sanity check
+	-- npcsTabl[npcName] = npc
+	rawset(npcsTabl, npc.Name, npc)
+	
+	print(('[*] %s setted on <npcs>'):format(tostring(rawget(npcsTabl, npc.Name)).Name))
 
 	return
 end
 
-local function delNpc(npcName : string) : ()
-	table.remove(npcsTabl, table.find(npcsTabl, npcName))
-	print(('[*] %s deleted from <npcs>'):format(tostring(npcName)))
+local function delNpc(npc : Instance) : () -- need sanity check
+	table.remove(npcsTabl, table.find(npcsTabl, npc.Name))
+	
+	print(('[*] %s deleted from <npcs>'):format(tostring(npc.Name)))
 
 	return
 end
 
 -- FUNCTIONAL
-local function npcIterator(childTabl : {[number] : Instance}) : ()
+local function npcIterator(childTabl : {[number] : Instance}) : () -- need sanity check(s)
 	local npcIteratorThread = coroutine.create(function(_) : ()
 		for index = 1, #childTabl do
 			if (childTabl[index]:IsA('Model') and childTabl[index]:FindFirstChildOfClass('Humanoid')) then
@@ -69,7 +76,7 @@ local function npcIterator(childTabl : {[number] : Instance}) : ()
 	end
 end
 
-local function npcHandler(childTabl : {[number] : Instance}) : ()
+local function npcHandler(childTabl : {[number] : Instance}) : () -- need sanity check??
 	for npcTabl in npcIterator(childTabl) do
 		if (npcTabl['success']) then
 			setNpc(rawget(npcTabl, 'npc'))
@@ -100,7 +107,7 @@ local function getPrompt(npc : Instance) : boolean -- prompt type
 	end)
 
 	while (not (prompt)) do
-		if (not (npc.Parent)) then warn(debugModel:format('failed', tostring(npc.Name))); return false end
+		if (not (npc.Parent)) then warn(debugModel:format('failed', tostring(npc.Name))); return false end -- AncestryChanged
 		
 		wait(1)
 	end
@@ -111,24 +118,21 @@ local function getPrompt(npc : Instance) : boolean -- prompt type
 end
 
 local function firePrompt(prompt) : boolean
-	local waitFor = false
+	local waitFor : boolean = false
 
 	local connection; connection = game:GetService('Players').LocalPlayer.PlayerGui.PhoneHackDialog.Holder:GetPropertyChangedSignal('Visible'):Connect(function()
-		connection:Disconnect()
-		HackingController.CancelAndCleanFromOutside()
+		connection:Disconnect(); HackingController.CancelAndCleanFromOutside()
 	end)
+	
+	print('!', typeof(connection)) -- ✖
 
 	fireproximityprompt(prompt, 1, true)
+	
+	-- SimpleSpy come from _G
+	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function() waitFor = true end)
+	SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc) FinishedPhoneHack:FireServer(0) end)
 
-	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
-		waitFor = true
-	end)
-
-	SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc)
-		FinishedPhoneHack:FireServer(0)
-	end)
-
-	while not (waitFor) do wait(1) end
+	while (not (waitFor)) do wait(1) end
 
 	return true
 end
@@ -139,7 +143,7 @@ local function npcPromptHandler() : ()
 
 		if (prompt) then
 			firePrompt(prompt)
-			delNpc(npc.Name)
+			delNpc(npc)
 		end
 	end
 
