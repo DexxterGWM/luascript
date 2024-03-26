@@ -120,7 +120,7 @@ local function getPrompt(npc : Instance) : ProximityPrompt | boolean
 	return prompt
 end
 
-local function firePrompt(prompt) : boolean
+local function firePrompt(prompt) : boolean -- need fix (some)
 	local waitFor : boolean = false
 
 	local connection : RBXScriptConnection
@@ -139,7 +139,7 @@ local function firePrompt(prompt) : boolean
 	return true
 end
 
-local function npcPromptHandler() : ()
+local function npcPromptHandler() : () -- need fix
 	for _, npc in pairs(npcsTabl) do
 		local prompt = getPrompt(npc)
 
