@@ -158,9 +158,4 @@ npcHandler(game:GetService('Workspace').NPC:GetChildren())
 
 npcPromptHandler()
 
--- local test; test = npcFolder.ChildAdded:Connect(function(child : Instance) : ()
--- 	if (not (child:FindFirstChildOfClass('Humanoid'))) then return end
--- 	
--- 	npcHandler({child})
--- 	
--- 	return
+-- npcFolder.ChildAdded:Connect => function(child : Instance) : ()
