@@ -38,9 +38,15 @@ fireproximityprompt = fireproximityprompt
 -- SETTERS
 local function setNpc(npc : Instance) : () -- need sanity check
 	-- npcsTabl[npcName] = npc
+	
+	print('!!', npc.Name) -- ✖
 	rawset(npcsTabl, npc.Name, npc)
 	
-	print(('[*] %s setted on <npcs>'):format(tostring(rawget(npcsTabl, npc.Name)).Name))
+	print(('[*] %s setted on <npcs>'):format(
+		tostring(
+			rawget(npcsTabl, npc.Name)) -- .Name??
+		)
+	)
 
 	return
 end
