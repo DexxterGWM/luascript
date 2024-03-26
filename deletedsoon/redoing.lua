@@ -123,6 +123,8 @@ end
 local function getPrompt(npc : Instance) : ()
 	local prompt
 
+	print('trying on', npc.Name) --
+
 	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
 		Players.LocalPlayer.Character:MoveTo(npc.HumanoidRootPart.Position)
 		prompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
@@ -165,6 +167,7 @@ local function npcPromptHandler() : ()
 		local prompt = getPrompt(npc)
 
 		if (prompt) then
+			print('prompt of', npc.Name) --
 			firePrompt(prompt)
 			delNpc(npc.Name)
 		end
