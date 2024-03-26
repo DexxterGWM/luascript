@@ -136,21 +136,22 @@ end
 
 local function firePrompt(prompt) : boolean
 	local waitFor = false
+
+	local guiConnection; guiConnection = NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
+		guiConnection:Disconnect()
+		HackingController.CancelAndCleanFromOutside()
+	end)
+	
 	fireproximityprompt(prompt, 1, true)
 
+	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
+		waitFor = true
+		print('Cancel wait for')
+	end)
+	
 	SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc)
 		print('Finished')
 		FinishedPhoneHack:FireServer(0)
-	end)
-	
-	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
-		local guiConnection; guiConnection = NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
-			print('got that') --
-			guiConnection:Disconnect()
-			waitFor = true
-
-			HackingController.CancelAndCleanFromOutside()
-		end)
 	end)
 	
 	while not (waitFor) do wait(1) end
