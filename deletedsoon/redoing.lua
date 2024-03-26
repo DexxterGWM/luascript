@@ -140,16 +140,16 @@ end
 local function firePrompt(prompt) : boolean
 	local waitFor = false
 
-	print(typeof(NPCHackDialog), 'type')
-
+	print(NPCHackDialog.Enabled) --
 	local connection; connection = NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
+		print('?') --
 		connection:Disconnect()
-		print('got here?')
+		print('got here?') --
+		
 		HackingController.CancelAndCleanFromOutside()
 	end)
 
-	print(typeof(connection), 'conn')
-	
+	print('!') --
 	fireproximityprompt(prompt, 1, true)
 
 	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
