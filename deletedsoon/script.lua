@@ -127,19 +127,19 @@ local function firePrompt(prompt) : boolean -- need fix (some)
 	connection = game:GetService('Players').LocalPlayer.PlayerGui.PhoneHackDialog.Holder:GetPropertyChangedSignal('Visible'):Connect(function()
 		connection:Disconnect(); HackingController.CancelAndCleanFromOutside()
 	end)
-
-	fireproximityprompt(prompt, 1, true)
 	
 	-- SimpleSpy come from _G
 	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function() waitFor = true end)
 	SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc) FinishedPhoneHack:FireServer(0) end)
+
+	fireproximityprompt(prompt, 1, true)
 
 	while (not (waitFor)) do wait(1) end
 
 	return true
 end
 
-local function npcPromptHandler() : () -- need fix
+local function promptHandler() : () -- need fix
 	for _, npc in pairs(npcsTabl) do
 		local prompt = getPrompt(npc)
 
@@ -158,6 +158,6 @@ npcHandler(game:GetService('Workspace').NPC:GetChildren())
 -- game:GetService('Lighting').UnloadedNPC
 -- game:GetService('Lighting').PreUnloadedNPC
 
-npcPromptHandler()
+promptHandler()
 
 -- npcFolder.ChildAdded:Connect => function(child : Instance) : ()
