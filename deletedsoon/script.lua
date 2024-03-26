@@ -1,3 +1,5 @@
+if not (game:IsLoaded()) then game.Loaded:Wait() end
+
 -- [[ ESSENTIAL ]]
 
 -- API(s)
@@ -37,24 +39,17 @@ fireproximityprompt = fireproximityprompt
 
 -- SETTERS
 local function setNpc(npc : Instance) : () -- need sanity check
-	-- npcsTabl[npcName] = npc
+	print(('setting %s on <npcs>'):format(tostring(npc.Name))) --
 	
-	print('!!', npc.Name) -- ✖
 	rawset(npcsTabl, npc.Name, npc)
-	
-	print(('[*] %s setted on <npcs>'):format(
-		tostring(
-			rawget(npcsTabl, npc.Name)) -- .Name??
-		)
-	)
 
 	return
 end
 
 local function delNpc(npc : Instance) : () -- need sanity check
-	table.remove(npcsTabl, table.find(npcsTabl, npc.Name))
+	print(('deleting %s from <npcs>'):format(tostring(rawget(npcsTabl, npc.Name)))) --
 	
-	print(('[*] %s deleted from <npcs>'):format(tostring(npc.Name)))
+	table.remove(npcsTabl, table.find(npcsTabl, npc.Name))
 
 	return
 end
@@ -97,11 +92,13 @@ local function npcHandler(childTabl : {[number] : Instance}) : () -- need sanity
 	return
 end
 
-local function getPrompt(npc : Instance) : boolean -- prompt type
+local function getPrompt(npc : Instance) : ProximityPrompt | boolean
 	if (not (npc.ClassName == 'Model' and npc:FindFirstChildOfClass('Humanoid'))) then warn('error getting prompt'); return false end
 	
-	local debugModel = ('%s getting prompt of %s')	
-	local prompt -- :? type
+	local debugModel = ('%s getting prompt of %s')
+	print('!', typeof(debugModel)) -- ✖
+	
+	local prompt : ProximityPrompt
 
 	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
 		print(debugModel:format('attempt', tostring(npc.Name))) --
@@ -126,11 +123,10 @@ end
 local function firePrompt(prompt) : boolean
 	local waitFor : boolean = false
 
-	local connection; connection = game:GetService('Players').LocalPlayer.PlayerGui.PhoneHackDialog.Holder:GetPropertyChangedSignal('Visible'):Connect(function()
+	local connection : RBXScriptConnection
+	connection = game:GetService('Players').LocalPlayer.PlayerGui.PhoneHackDialog.Holder:GetPropertyChangedSignal('Visible'):Connect(function()
 		connection:Disconnect(); HackingController.CancelAndCleanFromOutside()
 	end)
-	
-	print('!', typeof(connection)) -- ✖
 
 	fireproximityprompt(prompt, 1, true)
 	
