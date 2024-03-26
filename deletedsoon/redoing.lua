@@ -55,7 +55,7 @@ local FinishedPhoneHack : RemoteEvent = RE.FinishedPhoneHack
 -- [[ SCRIPT VARIABLES ]]
 
 -- GUIS
-local NPCHackDialog = Players.LocalPlayer.PlayerGui.NPCHackDialog
+local NPCHackDialog : ScreenGui = Players.LocalPlayer.PlayerGui.NPCHackDialog
 
 -- TABLES
 local npcsTabl : {[string] : Instance} = {}
