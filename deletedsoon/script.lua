@@ -33,6 +33,8 @@ local pairs = pairs
 local rawget, rawset = rawget, rawset
 local table = table
 
+-- local string = string -- string.format
+
 fireproximityprompt = fireproximityprompt
 
 -- [[ LOCAL FUNCTIONS ]]
@@ -96,8 +98,6 @@ local function getPrompt(npc : Instance) : ProximityPrompt | boolean
 	if (not (npc.ClassName == 'Model' and npc:FindFirstChildOfClass('Humanoid'))) then warn('error getting prompt'); return false end
 	
 	local debugModel = ('%s getting prompt of %s')
-	print('!', typeof(debugModel)) -- ✖
-	
 	local prompt : ProximityPrompt
 
 	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
@@ -115,7 +115,7 @@ local function getPrompt(npc : Instance) : ProximityPrompt | boolean
 		wait(1)
 	end
 	
-	print(('got %s of %s | %s'):format(tostring(prompt.Name), tostring(npc.Name), typeof(prompt))) --
+	print(('got %s of %s'):format(tostring(prompt.Name), tostring(npc.Name))) --
 
 	return prompt
 end
