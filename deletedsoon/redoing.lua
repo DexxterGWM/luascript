@@ -1,15 +1,3 @@
--- local testButton = game:GetService('Players').LocalPlayer.PlayerGui.ChocolateMenu:FindFirstChild('testButton')
--- if testButton then testButton:Destroy() end
-
--- local testButton = Instance.new('TextButton')
-
--- testButton.AnchorPoint = Vector2.new(0.5, 0.5)
--- testButton.Position = UDim2.new(0.5, 0, 0.5, 0)
--- testButton.TextColor3 = Color3.fromRGB(0, 0, 0)
--- testButton.Text = 'cancel'
--- testButton.Parent = game:GetService('Players').LocalPlayer.PlayerGui.ChocolateMenu
--- testButton.Size = UDim2.new(0, 50, 0, 50)
-
 -- [[ ESSENTIAL VARIABLES ]]
 
 -- API(s)
@@ -181,8 +169,8 @@ npcHandler(npcFolder:GetChildren())
 
 npcPromptHandler()
 
--- coroutine.close?! (depends of what's needed)
--- task.cancel?! (may)
+-- coroutine.close
+-- task.cancel
 
 -- local test; test = npcFolder.ChildAdded:Connect(function(child : Instance) : ()
 -- 	if (not (child:FindFirstChildOfClass('Humanoid'))) then return end
@@ -190,6 +178,3 @@ npcPromptHandler()
 -- 	npcHandler({child})
 -- 	
 -- 	return
--- end)
-
--- testButton.MouseButton1Click:Connect(function() test:Disconnect(); testButton:Destroy() end)
