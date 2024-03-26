@@ -140,10 +140,15 @@ end
 local function firePrompt(prompt) : boolean
 	local waitFor = false
 
-	local guiConnection; guiConnection = NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
-		guiConnection:Disconnect()
+	print(typeof(NPCHackDialog), 'type')
+
+	local connection; connection = NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
+		connection:Disconnect()
+		print('got here?')
 		HackingController.CancelAndCleanFromOutside()
 	end)
+
+	print(typeof(connection), 'conn')
 	
 	fireproximityprompt(prompt, 1, true)
 
