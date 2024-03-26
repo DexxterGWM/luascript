@@ -55,7 +55,7 @@ local FinishedPhoneHack : RemoteEvent = RE.FinishedPhoneHack
 -- [[ SCRIPT VARIABLES ]]
 
 -- GUIS
-local NPCHackDialog : ScreenGui = Players.LocalPlayer.PlayerGui.NPCHackDialog
+local PhoneHackDialog : ScreenGui = Players.LocalPlayer.PlayerGui.PhoneHackDialog
 
 -- TABLES
 local npcsTabl : {[string] : Instance} = {}
@@ -140,30 +140,28 @@ end
 local function firePrompt(prompt) : boolean
 	local waitFor = false
 
-	print(NPCHackDialog.Enabled) --
-	local connection; connection = NPCHackDialog:GetPropertyChangedSignal('Enabled'):Connect(function()
-		print(NPCHackDialog.Enabled) --
-		
+	print(PhoneHackDialog.Holder.Visible, 'here') --
+	local connection; connection = PhoneHackDialog.Holder:GetPropertyChangedSignal('Visible'):Connect(function()
 		connection:Disconnect()
+		
+		print(PhoneHackDialog.Holder.Visible, 'there') --
 		HackingController.CancelAndCleanFromOutside()
-
-		waitFor = true
 	end)
 
 	fireproximityprompt(prompt, 1, true)
-	print(NPCHackDialog.Enabled) --
 
-	--SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
-	--	waitFor = true
-	--	print('Cancel wait for')
-	--end)
+	SimpleSpy:GetRemoteFiredSignal(FinishedPhoneHack):Connect(function()
+		waitFor = true
+		print('Cancel wait for')
+	end)
 	
-	--SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc)
-	--	print('Finished')
-	--	FinishedPhoneHack:FireServer(0)
-	--end)
+	SimpleSpy:GetRemoteFiredSignal(StartedPhoneHack):Connect(function(npc)
+		print('Finished')
+		FinishedPhoneHack:FireServer(0)
+	end)
 	
 	while not (waitFor) do wait(1) end
+	print(PhoneHackDialog.Holder.Visible, 'end') --
 	
 	return true
 end
