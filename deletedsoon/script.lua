@@ -124,7 +124,7 @@ local function firePrompt(prompt) : boolean -- need fix (some)
 	local waitFor : boolean = false
 
 	local frameConnection : RBXScriptConnection
-	connection = game:GetService('Players').LocalPlayer.PlayerGui.PhoneHackDialog.Holder:GetPropertyChangedSignal('Visible'):Connect(function()
+	frameConnection = game:GetService('Players').LocalPlayer.PlayerGui.PhoneHackDialog.Holder:GetPropertyChangedSignal('Visible'):Connect(function()
 		frameConnection:Disconnect(); HackingController.CancelAndCleanFromOutside()
 	end)
 	
