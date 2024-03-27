@@ -46,8 +46,11 @@ local function checkNpc(npc : Instance) : boolean
 	-- local checkNpc = table.find(npcsTabl, npc.Name)
 	
 	print(npc.Parent, '1')
-	print(npc:IsDescendantOf('Workspace'), '2')
-	print(npc:FindFirstAncestor('Workspace'), '3')
+	-- print(npc:IsDescendantOf('Workspace'), '2') -- ?
+	print(npc:FindFirstAncestor('Workspace'), '2')
+	
+	print(npc.ClassName, ';;')
+	print(npc.Name, '|', typeof(npc), '..')
 	
 	return
 end
