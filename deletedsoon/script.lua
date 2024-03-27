@@ -54,7 +54,7 @@ local function checkNpc(npc : Instance) : boolean
 	print('folder:', folderAncestor, '|', typeof(folderAncestor))
 	
 	--
-	local test = string.gsub(folderAncestor, '.')
+	local test = string.gsub(folderAncestor, (serviceAncestor .. '.'), '')
 	print('--[[', typeof(test))
 	print(rawget(test, 1))
 	print(rawget(test, 2), '--]]')
