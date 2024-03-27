@@ -41,16 +41,29 @@ fireproximityprompt = fireproximityprompt
 
 -- OTHERS
 local function checkNpc(npc : Instance) : boolean
-	-- if (not (npc.ClassName == 'Model' and npc:FindFirstChildOfClass('Humanoid'))) then return false end
+	-- IsDescendantOf (npc or Workspace/Lighting Service?)
+	-- FindFirstAncestor (npc or Workspace/Lighting Service?)
+	-- GetFullName?
+	
+	local ancestors = {}
+	
+	while npc.Parent do
+		table.insert(ancestors, 1, npc:GetFullName())
+		npc = npc.Parent
+	end
+
+	for _, ancestor in ipairs(ancestors) do
+		print('anc:', ancestor)
+	end
+	
+	print('!', npc:FindFirstAncestor('NPC'))
+	print('/', npc:FindFirstAncestor('UnloadedNPC'))
 	
 	-- local checkNpc = table.find(npcsTabl, npc.Name)
 	
-	print(npc.Parent, '1')
-	-- print(npc:IsDescendantOf('Workspace'), '2') -- ?
-	print(npc:FindFirstAncestor('Workspace'), '2')
-	
-	print(npc.ClassName, ';;')
-	print(npc.Name, '|', typeof(npc), '..')
+	-- basic:
+	--		[1] = if npc class name != Model and npc find first child of class Humanoid;
+	--		[2] = if npc is descendant of/descendant name in {workspace, unloaded, preunloaded}.
 	
 	return
 end
