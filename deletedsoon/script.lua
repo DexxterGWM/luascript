@@ -100,13 +100,14 @@ local function getPrompt(npc : Instance) : ProximityPrompt | boolean
 	local debugModel = ('%s getting prompt of %s')
 	local prompt : ProximityPrompt
 
-	local connection; connection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
+	local cframeConnection : RBXScriptConnection
+	cframeConnection = npc:GetAttributeChangedSignal('NextCFrame'):Connect(function()
 		print(debugModel:format('attempt', tostring(npc.Name))) --
 		
 		game:GetService('Players').LocalPlayer.Character:MoveTo(npc.HumanoidRootPart.Position)
 		prompt = npc.HumanoidRootPart:FindFirstChild('ProximityPrompt')
 
-		if (prompt) then connection:Disconnect() end
+		if (prompt) then cframeConnection:Disconnect() end
 	end)
 
 	while (not (prompt)) do
