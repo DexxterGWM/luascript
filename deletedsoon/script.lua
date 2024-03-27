@@ -41,22 +41,17 @@ fireproximityprompt = fireproximityprompt
 
 -- OTHERS
 local function checkNpc(npc : Instance) : boolean
-	-- IsDescendantOf (npc or Workspace/Lighting Service?)
-	-- FindFirstAncestor (npc or Workspace/Lighting Service?)
-	-- GetFullName?
-	
-	local ancestors = {}
+	local npcPath : {[number] : string} = {}
 	
 	while npc.Parent do
-		table.insert(ancestors, 1, npc:GetFullName())
-		
-		print('...', npc.Parent.Name, '| #', #ancestors)
-		npc = npc.Parent
+		table.insert(npcPath, 1, npc:GetFullName()); npc = npc.Parent
 	end
 
-	-- for _, ancestor in ipairs(ancestors) do print('anc:', ancestor) end
-	print(rawget(ancestors, 1))
-	print(rawget(ancestors, 2))
+	local serviceAncestor = rawget(npcPath, 1)
+	local folderAncestor : Folder = rawget(npcPath, 2)
+	
+	print('sevice:', serviceAncestor)
+	print('folder:', folderAncestor)
 	
 	-- local checkNpc = table.find(npcsTabl, npc.Name)
 	
