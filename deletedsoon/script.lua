@@ -49,15 +49,14 @@ local function checkNpc(npc : Instance) : boolean
 	
 	while npc.Parent do
 		table.insert(ancestors, 1, npc:GetFullName())
+		
+		print('...', npc.Parent.Name, '| #', #ancestors)
 		npc = npc.Parent
 	end
 
-	for _, ancestor in ipairs(ancestors) do
-		print('anc:', ancestor)
-	end
-	
-	print('!', npc:FindFirstAncestor('NPC'))
-	print('/', npc:FindFirstAncestor('UnloadedNPC'))
+	-- for _, ancestor in ipairs(ancestors) do print('anc:', ancestor) end
+	print(rawget(ancestors, 1))
+	print(rawget(ancestors, 2))
 	
 	-- local checkNpc = table.find(npcsTabl, npc.Name)
 	
