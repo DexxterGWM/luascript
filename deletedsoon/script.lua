@@ -50,8 +50,15 @@ local function checkNpc(npc : Instance) : boolean
 	local serviceAncestor = rawget(npcPath, 1)
 	local folderAncestor : Folder = rawget(npcPath, 2)
 	
-	print('sevice:', serviceAncestor)
-	print('folder:', folderAncestor)
+	print('sevice:', serviceAncestor, '|', typeof(serviceAncestor))
+	print('folder:', folderAncestor, '|', typeof(folderAncestor))
+	
+	--
+	local test = string.gsub(folderAncestor, '.')
+	print('--[[', typeof(test))
+	print(rawget(test, 1))
+	print(rawget(test, 2), '--]]')
+	--
 	
 	-- local checkNpc = table.find(npcsTabl, npc.Name)
 	
